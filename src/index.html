@@ -7,15 +7,21 @@
     <link rel="stylesheet" href="./sass/index.scss" />
   </head>
   <body>
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit">Search</button>
-    </form>
+    <section class="form-section">
+      <form class="search-form" id="search-form">
+        <input
+          id="searchBox"
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit" id="button">Search</button>
+      </form>
+    </section>
+    <div class="gallery">
+      <!-- Obraz karty -->
+    </div>
 
     <script type="module" src="./index.js"></script>
   </body>
