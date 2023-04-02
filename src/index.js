@@ -11,6 +11,7 @@ const loadMore = document.querySelector(".load-more");
 const apiKey = "34852127-c965fcd32e5f56da9013a5883";
 let perPageParam;
 let totalHits;
+let hits;
 
 
 
