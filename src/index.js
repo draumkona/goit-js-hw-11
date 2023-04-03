@@ -40,14 +40,19 @@ function checkAmount(totalHits) {
 
   if (totalHits === 0) {
     Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+    loadMore.classList.add("is-hidden");
     return;
   }
-  if (perPageParam === 1 && searchBox.value !== "") {
+  if (totalHits < 40) {
+    Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
+    return;
+  }
+  if (perPageParam === 1 && searchBox.value !== "" && totalHits >= 40) {
     Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
     loadMore.classList.remove("is-hidden");
     return;
   }
-  if (totalPages === perPageParam) {
+  if (totalPages === perPageParam && totalHits >= 40) {
     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
     loadMore.classList.add("is-hidden");
     return;
@@ -55,7 +60,6 @@ function checkAmount(totalHits) {
   if (totalPages >= perPageParam) {
     loadMore.classList.remove("is-hidden");
   }
-  
 }
 
 const drawGallery = hits => {
@@ -93,12 +97,10 @@ const drawGallery = hits => {
 const eventHandler = ev => {
   ev.preventDefault();
   perPageParam = 1;
-
   getData(`${searchBox.value}`)
     .then(hits => {
       gallery.innerHTML = "";
       drawGallery(hits)
-      perPageParam ++
     })
     .catch(err => {
       gallery.innerHTML = "";
@@ -108,11 +110,10 @@ const eventHandler = ev => {
 
 const moreImages = (e) => {
   e.preventDefault();
-  perPageParam ++
+  perPageParam++
   getData(`${searchBox.value}`)
     .then(hits => {
       drawGallery(hits)
-
       const { height: cardHeight } = document
         .querySelector(".gallery")
         .firstElementChild.getBoundingClientRect();
